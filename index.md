@@ -7,4 +7,4 @@
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
- - [array-assignment](03 array assignment)
+ - [array-assignment](array-assignment)
