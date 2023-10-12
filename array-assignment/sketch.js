@@ -8,7 +8,7 @@
 let score = 0;
 let life = "alive";
 let recSide1 = 100;
-let recSdie2 = 100;
+let recSide2 = 100;
 
 
 
@@ -19,6 +19,7 @@ function setup() {
 
 function draw() {
   background(220);
+  
 }
 
 
