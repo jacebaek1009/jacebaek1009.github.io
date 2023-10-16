@@ -34,5 +34,7 @@ function displayPlayer(){
   rect(x, y - recSide2, recSide1, recSide2);
 }
 
-function keyIsDown{}
+function keyIsDown(){ 
+
+}
 
