@@ -14,27 +14,49 @@ let y;
 let vx;
 let vy;
 let grav = 0.2;
+let timer = 0;
 
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  x = windowWidth/2;
-  y = windowHeight;
+  obstacle1();
 }
 
 function draw() {
-  background(220);
+  textSize(20);
+  textAlign(RIGHT, TOP);
+  text(timer,1450, 30);
+  text("Score", 1400, 30);
+  timer += 1;
+  
   displayPlayer();
+  displayEnemy();
+  
 }
 
 
 function displayPlayer(){
+  x = windowWidth/2;
+  y = windowHeight - recSide2;
   fill(0);
-  rect(x, y - recSide2, recSide1, recSide2);
+  rect(x, y, recSide1, recSide2);
 }
 
 function keyIsDown(){ 
 
+}
+
+function obstacle1(){
+  x = windowWidth/2;
+  fill(200);
+  rect(x, 700, 200, 50);
+}
+
+function displayEnemy(){
+  x = 200;
+  y = windowHeight - recSide2;
+  fill(255, 0 , 0);
+  rect(x, y, recSide1, recSide2);
 }
 
