@@ -65,7 +65,7 @@ function moveBall() {
   
     console.log(theBall.x, theBall.y);
   }
-  }
+}
 
 function displayBall() {
   for(let i = 0; i < ballArray.length; i++){

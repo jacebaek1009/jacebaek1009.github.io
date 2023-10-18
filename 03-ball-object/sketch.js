@@ -14,9 +14,9 @@ function draw() {
   displayBall();
 }
 
-function keyTtped(){
+function keyTyped(){
   if(key === " "){
-    theBall = spawnBall()
+    theBall = spawnBall();
   }
 }
 

@@ -15,7 +15,11 @@ let vx = 5;
 let vy = 5;
 let grav = 0.2;
 let timer = 0;
-let player
+let player;
+let bot;
+let lastSwitchTime = 0;
+let waitTime = 2000;
+let botArray = [];
 
 
 function setup() {
@@ -23,6 +27,7 @@ function setup() {
   obstacle1();
   x = windowWidth/2;
   y = windowHeight/2;
+  bot = spawnEnemy();
 }
 
 function draw() {
@@ -33,26 +38,26 @@ function draw() {
   text("Score", 1400, 30);
   timer += 1;
   
+  spawnMore();
   movePlayer();
-  displayPlayer();
-  spawnEnemy();
-  
+  displayBot();
+  moveEnemy();
 }
 
 
 function spawnEnemy(){
-  let enemy = {
+  let bot = {
     x: random(width),
     y: random(height),
-    sideLength1: 50,
-    sideLength2: 50,
+    sideLength1: recSide1,
+    sideLength2: recSide2,
     r: 255,
     g: 0,
     b: 0,
-    vx: 5,
-    vy: 5,
+    dx: 5,
+    dy: 5,
   };
-  return enemy;
+  return bot;
 }
 
 function movePlayer(){
@@ -84,10 +89,35 @@ function displayEnemy(){
 }
 
 function moveEnemy(){
-  if (x + sideLength1 >= windowWidth || x <= 0) {
-    vx = -1 * vx;
+  for (let i = 0; i < botArray.length; i ++){
+    let bot = botArray[i];
   }
-  if (y + sideLength2 >= windowHeight || y <= 0) {
-    vy = -1 * vy;
+
+  bot.x += bot.dx;
+  bot.y += bot.dy;
+
+  if (bot.x + bot.sideLength1 >= windowWidth || bot.x <= 0) {
+    bot.dx = -1 * bot.dx;
   }
+  if (bot.y + bot.sideLength2 >= windowHeight || bot.y <= 0) {
+    bot.dy = -1 * bot.dy;
+  }
+
+}
+
+function displayBot(){
+  for(let i = 0; i < botArray.length; i++){
+    let bot = botArray[i];
+    fill(bot.r, bot.g, bot.b);
+    rect(bot.x, bot.y, bot.sideLength1, bot.sideLength2);
+  }
+}
+
+function spawnMore(){
+  if(millis()>lastSwitchTime + waitTime){
+    lastSwitchTime = millis();
+    let bot = spawnEnemy();
+    botArray.push(bot);
+  }
+  
 }
