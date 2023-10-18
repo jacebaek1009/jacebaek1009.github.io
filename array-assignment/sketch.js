@@ -35,20 +35,24 @@ function draw() {
   
   movePlayer();
   displayPlayer();
-  displayEnemy();
+  spawnEnemy();
   
 }
 
 
-function displayPlayer(){
-  let player = {
-    x: 
-    y:
-    r: 255
-    g: 0
-    b: 0
-    vx: 5
-  }
+function spawnEnemy(){
+  let enemy = {
+    x: random(width),
+    y: random(height),
+    sideLength1: 50,
+    sideLength2: 50,
+    r: 255,
+    g: 0,
+    b: 0,
+    vx: 5,
+    vy: 5,
+  };
+  return enemy;
 }
 
 function movePlayer(){
@@ -79,3 +83,11 @@ function displayEnemy(){
   rect(x, y, recSide1, recSide2);
 }
 
+function moveEnemy(){
+  if (x + sideLength1 >= windowWidth || x <= 0) {
+    vx = -1 * vx;
+  }
+  if (y + sideLength2 >= windowHeight || y <= 0) {
+    vy = -1 * vy;
+  }
+}
