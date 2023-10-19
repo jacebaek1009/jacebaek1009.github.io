@@ -1,10 +1,12 @@
-// Tag
 // Jace Baek
-// Date
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Mr.Schellenberg
+//Period 3
+// October 19th 2023
+//Purpose; To create an interactive scene using object notation and arrays. Some of the features in this game are, score, background change, end screen, restart button, enemy chase, player control.
+//Requirements completed; Array; done, object notation; done; 
+//Extra for experts attempted. Two of the main things I have implemented in my code that goes above and beyond what was used in class was 1.More complicated math functions like atan2, cos, and sin, These math functions were not taught in class and I as able to use these functions to first, find the angle in radians of where the player is, second I used cos function of the find the new dx value for the enmy and sine to find the y value for the enemy. The second thing I used was the slider function> from this function I was able to change the background brightness by setting the minimum value and maximum value. 
 
+// Variables
 let life = "alive";
 let recSide1 = 25;
 let recSide2 = 25;
@@ -19,16 +21,19 @@ let bot;
 let lastSwitchTime = 0;
 let waitTime = 1500;
 let botArray = [];
+let slider;
 
+//In the setup function I declared my "array variables", and created my sliders for the brightness
 function setup() {
   createCanvas(windowWidth, windowHeight);
   bot = spawnEnemy();
   player = spawnPlayer();
   slider = createSlider(0, 255, 255);
   slider.position(windowWidth/3, 100);
-  slider.style('width', '500px');
+  slider.style("width", "500px");
 }
 
+// In the drawy function I set up the slider, 
 function draw() {
   let val = slider.value();
   background(val);
@@ -36,28 +41,29 @@ function draw() {
   textAlign(CENTER);
   text("Use this to change the brightness", windowWidth/2, 50)
 
-    if (life === "alive") {
-      textSize(20);
-      textAlign(RIGHT, TOP);
-      text(timer, 1450, 30);
-      text("Score", 1400, 30);
-      movePlayer();
-      collision();
-      timer += 1;
-      spawnMore();
-      displayBot();
-      displayPlayer();
-      moveEnemy();
-    }
-    if (life === "dead"){
-      textSize(200);
-      textAlign(CENTER, CENTER);
-      text("Game Over!", windowWidth/2, windowHeight/2);
-      text(timer, windowWidth/2, windowHeight/1.5);
-      textSize(100);
-      textAlign(CENTER, windowHeight - 100);
-      text("Press Spacebar to restart", windowWidth/2, windowHeight - 100);
-    }
+  if (life === "alive") {
+    textSize(20);
+    textAlign(RIGHT, TOP);
+    text(timer, 1450, 30);
+    text("Score", 1400, 30);
+    movePlayer();
+    collision();
+    timer += 1;
+    spawnMore();
+    displayBot();
+    displayPlayer();
+    moveEnemy();
+  }
+  if (life === "dead"){
+    textSize(200);
+    textAlign(CENTER, CENTER);
+    textSize(100);
+    text("Game Over!", windowWidth/2, windowHeight/2);
+    text(timer, windowWidth/2, windowHeight/1.5);
+    textSize(100);
+    textAlign(CENTER, windowHeight - 100);
+    text("Press Spacebar to restart", windowWidth/2, windowHeight - 100);
+  }
 
 }
 
@@ -143,8 +149,8 @@ function spawnPlayer() {
 }
 
 function displayPlayer() {
-    fill(player.r, player.g, player.b);
-    rect(player.x, player.y, recSide1, recSide2);
+  fill(player.r, player.g, player.b);
+  rect(player.x, player.y, recSide1, recSide2);
 }
 
 function collision() {
