@@ -33,7 +33,7 @@ function setup() {
   slider.style("width", "500px");
 }
 
-// In the drawy function I set up the slider, 
+// In the draw function, I set up the slider, all the text and calling all of my functions as well as starting the timer/score 
 function draw() {
   let val = slider.value();
   background(val);
@@ -67,7 +67,7 @@ function draw() {
 
 }
 
-
+//Funcion to spawn the enemy bot using function notation also set up the chaseplayer function
 function spawnEnemy() {
   let bot = {
     x: random(width),
@@ -90,6 +90,7 @@ function spawnEnemy() {
   return bot;
 }
 
+//Function to move the player using WASD
 function movePlayer() {
   if (keyIsDown(87)) {
     player.y = player.y - player.dy;
@@ -105,6 +106,7 @@ function movePlayer() {
   }
 }
 
+//Function to move the enemy and making it bounce if it touches the walls
 function moveEnemy() {
   for (let i = 0; i < botArray.length; i++) {
     let bot = botArray[i];
@@ -119,6 +121,7 @@ function moveEnemy() {
   }
 }
 
+//function to display the bot
 function displayBot() {
   for (let i = 0; i < botArray.length; i++) {
     let bot = botArray[i];
@@ -127,6 +130,7 @@ function displayBot() {
   }
 }
 
+//function to spawn more bot every whatever miliseconds I put at the top
 function spawnMore() {
   if (millis() > lastSwitchTime + waitTime) {
     lastSwitchTime = millis();
@@ -135,6 +139,7 @@ function spawnMore() {
   }
 }
 
+//function to spawn a normal square shape for the player
 function spawnPlayer() {
   let player = {
     x: windowWidth / 2,
@@ -148,11 +153,13 @@ function spawnPlayer() {
   return player;
 }
 
+//displaying th player
 function displayPlayer() {
   fill(player.r, player.g, player.b);
   rect(player.x, player.y, recSide1, recSide2);
 }
 
+//the function for the collision where if the player touches the bot it dies.
 function collision() {
   for (let i = botArray.length - 1; i >= 0; i--) {
     let bot = botArray[i];
@@ -162,13 +169,14 @@ function collision() {
     let enemyCenterY = bot.y + bot.sideLength2 / 2;
     let d = dist(playerCenterX, playerCenterY, enemyCenterX, enemyCenterY);
     let minD = (recSide1 + bot.sideLength1) / 2;
-    if (d <= minD) {
+    if (d <= minD) {//this makes it so that when the player is less then equals to the minimum distance it can be from the bot it deletes the bot and switchs life to dead
       botArray.splice(i, 3);
       life = "dead";
     }
   }
 }
 
+//function to where the player can hit the space bar when they are dead to restart the game
 function keyTyped(){
   if(key === " " && life === "dead"){
     life = "alive";
