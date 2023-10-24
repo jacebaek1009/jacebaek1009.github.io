@@ -7,6 +7,7 @@
 - [Perlin Noise Ball](06-noise-ball)
 - [sounds and Images](07-sounds-images)
 - [Terrain](08-terrain)
+- [draw a grid](9-2d-array)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
