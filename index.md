@@ -8,6 +8,7 @@
 - [sounds and Images](07-sounds-images)
 - [Terrain](08-terrain)
 - [draw a grid](9-2d-array)
+- [grid neighbours](neighbours)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
