@@ -102,5 +102,4 @@ function toggleCell(x,y){
       grid[y][x] = 0;
     }
   }
-
 }
