@@ -78,7 +78,7 @@ function mousePressed() {
 function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
-    if (grid[y][x] === 0) {
+    if (grid[y][x] === 0 || grid[y][x] === ) {
       grid[y][x] = 1;
     }
     else if (grid[y][x] === 1) {
