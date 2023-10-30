@@ -9,6 +9,7 @@
 - [Terrain](08-terrain)
 - [draw a grid](9-2d-array)
 - [grid neighbours](neighbours)
+- [character grid](character-in-grid)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
