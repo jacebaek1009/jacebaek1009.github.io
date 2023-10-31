@@ -37,6 +37,9 @@ function keyTyped() {
   if (key === "e") {
     grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
   }
+  else if (key === "g"){
+    grid = generateGreenTerrain(GRID_SIZE, GRID_SIZE);
+  }
   else if (key === "s") {
     movePlayer(0, 1);
   }
@@ -49,22 +52,22 @@ function keyTyped() {
   else if (key === "d"){
     movePlayer(1, 0 );
   }
-  else if (key === "r"){
+  else if (key === "z"){
     backgroundColor = "red";
   }
-  else if (key === "green"){
+  else if (key === "x"){
     backgroundColor ="green";
   }
-  else if (key === "b"){
+  else if (key === "c"){
     backgroundColor = "brown";
   }
-  else if (key === "q"){
+  else if (key === "v"){
     backgroundColor = "grey";
   }
-  else if (key === "z"){
+  else if (key === "b"){
     backgroundColor = "white";
   }
-  else if (key === "x"){
+  else if (key === "n"){
     backgroundColor = "black";
   }
 }
@@ -95,11 +98,23 @@ function mousePressed() {
 function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
-    if (grid[y][x] === 0) {
+    if (backgroundColor === "white") {
+      grid[y][x] = 0;
+    }
+    else if (backgroundColor === "black") {
       grid[y][x] = 1;
     }
-    else if (grid[y][x] === 1) {
-      grid[y][x] = 0;
+    else if (backgroundColor === "red") {
+      grid[y][x] = 2;
+    }
+    else if (backgroundColor === "green") {
+      grid[y][x] = 3;
+    }
+    else if (backgroundColor === "brown") {
+      grid[y][x] = 4;
+    }
+    else if (backgroundColor === "grey") {
+      grid[y][x] = 5;
     }
   }
 }
@@ -152,6 +167,17 @@ function generateEmptyGrid(cols, rows) {
     newGrid.push([]);
     for (let x = 0; x < cols; x++) {
       newGrid[y].push(0);
+    }
+  }
+  return newGrid;
+}
+
+function generateGreenTerrain(cols, rows){
+  let newGrid = [];
+  for (let y = 0; y < rows; y++) {
+    newGrid.push([]);
+    for (let x = 0; x < cols; x++) {
+      newGrid[y].push(3);
     }
   }
   return newGrid;
