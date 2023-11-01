@@ -12,10 +12,21 @@ let cellSize;
 let playerX = 0;
 let playerY = 0;
 let backgroundColor = "black";
+let goblin;
+let worm;
+let spike;
+let eye;
+
+function preLoad(){
+  goblin = loadImage("goblin.png");
+  spike = loadImage("spike.png");
+  worm = loadImage("worm.png");
+  eye = loadImage("eye.png");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
+  grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
 
   if (height > width) {
     cellSize = width/GRID_SIZE;
@@ -34,10 +45,7 @@ function draw() {
 }
 
 function keyTyped() {
-  if (key === "e") {
-    grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
-  }
-  else if (key === "g"){
+  if (key === "g"){
     grid = generateGreenTerrain(GRID_SIZE, GRID_SIZE);
   }
   else if (key === "s") {
@@ -145,22 +153,6 @@ function displayGrid() {
   }
 }
 
-function generateRandomGrid(cols, rows) {
-  let newGrid = [];
-  for (let y = 0; y < rows; y++) {
-    newGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      if (random(100) < 50) {
-        newGrid[y].push(0);
-      }
-      else {
-        newGrid[y].push(1);
-      }
-    }
-  }
-  return newGrid;
-}
-
 function generateEmptyGrid(cols, rows) {
   let newGrid = [];
   for (let y = 0; y < rows; y++) {
@@ -181,4 +173,8 @@ function generateGreenTerrain(cols, rows){
     }
   }
   return newGrid;
+}
+
+function displayEnemySlow(){
+  
 }
