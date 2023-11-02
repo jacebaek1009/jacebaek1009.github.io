@@ -16,17 +16,19 @@ let goblin;
 let worm;
 let spike;
 let eye;
+let path;
 
 function preLoad(){
   goblin = loadImage("goblin.png");
   spike = loadImage("spike.png");
   worm = loadImage("worm.png");
   eye = loadImage("eye.png");
+  path = loadJSON("path.json");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
+  grid = path;
 
   if (height > width) {
     cellSize = width/GRID_SIZE;
