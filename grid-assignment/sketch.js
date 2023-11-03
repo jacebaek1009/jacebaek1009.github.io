@@ -9,7 +9,7 @@
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
-let playerX = 0;
+let playerX = 30;
 let playerY = 0;
 let backgroundColor = "black";
 let goblin;
@@ -18,7 +18,7 @@ let spike;
 let eye;
 let path;
 
-function preLoad(){
+function preload(){
   goblin = loadImage("goblin.png");
   spike = loadImage("spike.png");
   worm = loadImage("worm.png");
@@ -51,16 +51,16 @@ function keyTyped() {
     grid = generateGreenTerrain(GRID_SIZE, GRID_SIZE);
   }
   else if (key === "s") {
-    movePlayer(0, 1);
+    moveEnemySlow(0, 1);
   }
   else if (key === "w") {
-    movePlayer(0, -1);
+    moveEnemySlow(0, -1);
   }
   else if (key === "a"){
-    movePlayer(-1, 0);
+    moveEnemySlow(-1, 0);
   }
   else if (key === "d"){
-    movePlayer(1, 0 );
+    moveEnemySlow(1, 0 );
   }
   else if (key === "z"){
     backgroundColor = "red";
@@ -81,22 +81,6 @@ function keyTyped() {
     backgroundColor = "black";
   }
 }
-
-function movePlayer(x,y){
-  if (playerX + x >= 0 && playerX + x < GRID_SIZE && playerY + y >= 0 && playerY + y < GRID_SIZE){
-    if(grid[playerY + y][playerX + x] === 0){
-      let tempX = playerX;
-      let tempY = playerY;
-      
-      playerX += x;
-      playerY += y;
-
-      grid[playerY][playerX] = 9;
-      grid[tempY][tempX] = 0;
-    }
-  }
-}
-
 
 function mousePressed() {
   let y = Math.floor(mouseY/cellSize);
@@ -177,6 +161,22 @@ function generateGreenTerrain(cols, rows){
   return newGrid;
 }
 
-function displayEnemySlow(){
+function moveEnemySlow(x, y){
+  if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
+    playerY + y >= 0 && playerY + y < GRID_SIZE) {
   
+    //check if running into a wall
+    if (grid[playerY + y][playerX + x] === 0) {
+      let tempX = playerX;
+      let tempY = playerY;
+
+      playerX += x;
+      playerY += y;
+
+      //update grid
+      grid[playerY][playerX] = 2;
+      grid[tempY][tempX] = 0;
+    }
+}
+
 }
