@@ -9,7 +9,8 @@
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
-let playerX = 30;
+//let playerX = 30;
+let playerX = 0;
 let playerY = 0;
 let backgroundColor = "black";
 let goblin;
@@ -17,6 +18,8 @@ let worm;
 let spike;
 let eye;
 let path;
+let lastMoveTime = 0;
+let speed = 100;
 
 function preload(){
   goblin = loadImage("goblin.png");
@@ -44,6 +47,8 @@ function setup() {
 function draw() {
   background(220);
   displayGrid();
+  moveEnemySlow(1, 0);
+  
 }
 
 function keyTyped() {
@@ -162,21 +167,21 @@ function generateGreenTerrain(cols, rows){
 }
 
 function moveEnemySlow(x, y){
-  if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
-    playerY + y >= 0 && playerY + y < GRID_SIZE) {
-  
-    //check if running into a wall
-    if (grid[playerY + y][playerX + x] === 0) {
-      let tempX = playerX;
-      let tempY = playerY;
+  if(millis() > lastMoveTime + speed){
+    lastMoveTime = millis();
+    if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
+      playerY + y >= 0 && playerY + y < GRID_SIZE) {
+    
+      //check if running into a wall
+      if(grid[playerY][playerX + x] === 0){
+        let tempX = playerX;
+        let tempY = playerY;
 
-      playerX += x;
-      playerY += y;
+        playerX += x;
 
-      //update grid
-      grid[playerY][playerX] = 2;
-      grid[tempY][tempX] = 0;
+        grid[playerY][playerX] = 2;
+        grid[tempY][tempX] = 0;
+      }
     }
-}
-
+  }
 }
