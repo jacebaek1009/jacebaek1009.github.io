@@ -172,16 +172,7 @@ function moveEnemySlow(x, y){
     if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
       playerY + y >= 0 && playerY + y < GRID_SIZE) {
     
-      //check if running into a wall
-      if(grid[playerY][playerX + x] === 0){
-        let tempX = playerX;
-        let tempY = playerY;
-
-        playerX += x;
-
-        grid[playerY][playerX] = 2;
-        grid[tempY][tempX] = 0;
-      }
+      
     }
   }
 }
