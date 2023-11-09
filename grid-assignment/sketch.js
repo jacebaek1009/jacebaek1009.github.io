@@ -20,6 +20,7 @@ let eye;
 let path;
 let lastMoveTime = 0;
 let speed = 100;
+let enemyLine;
 
 function preload(){
   goblin = loadImage("goblin.png");
@@ -27,6 +28,7 @@ function preload(){
   worm = loadImage("worm.png");
   eye = loadImage("eye.png");
   path = loadJSON("path.json");
+  enemyLine = loadJSON("enemyline.json");
 }
 
 function setup() {
@@ -171,7 +173,7 @@ function moveEnemySlow(x, y){
     lastMoveTime = millis();
     if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
       playerY + y >= 0 && playerY + y < GRID_SIZE) {
-    
+        
       
     }
   }
