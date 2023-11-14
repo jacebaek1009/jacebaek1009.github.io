@@ -5,35 +5,37 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-
 let grid;
-const GRID_SIZE = 40;
+const GRID_SIZE = 10;
 let cellSize;
-//let playerX = 30;
 let playerX = 0;
 let playerY = 0;
-let backgroundColor = "black";
+let lastSwitchTime = 0;
+let waitTime;
 let goblin;
-let worm;
-let spike;
-let eye;
-let path;
-let lastMoveTime = 0;
-let speed = 100;
-let enemyLine;
+let sprite;
+let frameWidth = 32;
+let frameHeight = 32;
+let totalFrame = 4;
+let currentFrame = 0;
+let animationSpeed = 5;
+let bullets = []
+let soldiers = [];
+let soldierX; 
+let soldierY;
+
 
 function preload(){
   goblin = loadImage("goblin.png");
-  spike = loadImage("spike.png");
-  worm = loadImage("worm.png");
   eye = loadImage("eye.png");
-  path = loadJSON("path.json");
-  enemyLine = loadJSON("enemyline.json");
+  sprite = loadImage("soldierani.png");
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  grid = path;
+  createCanvas(windowWidth*0.8, windowHeight*0.8);
+  grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
+
+  frameRate(3);
 
   if (height > width) {
     cellSize = width/GRID_SIZE;
@@ -42,80 +44,29 @@ function setup() {
     cellSize = height/GRID_SIZE;
   }
 
-
-  grid[playerY][playerX] = 9;
+  waitTime = random(6, 10)
 }
 
 function draw() {
   background(220);
   displayGrid();
-  moveEnemySlow(1, 0);
-  
-}
-
-function keyTyped() {
-  if (key === "g"){
-    grid = generateGreenTerrain(GRID_SIZE, GRID_SIZE);
-  }
-  else if (key === "s") {
-    moveEnemySlow(0, 1);
-  }
-  else if (key === "w") {
-    moveEnemySlow(0, -1);
-  }
-  else if (key === "a"){
-    moveEnemySlow(-1, 0);
-  }
-  else if (key === "d"){
-    moveEnemySlow(1, 0 );
-  }
-  else if (key === "z"){
-    backgroundColor = "red";
-  }
-  else if (key === "x"){
-    backgroundColor ="green";
-  }
-  else if (key === "c"){
-    backgroundColor = "brown";
-  }
-  else if (key === "v"){
-    backgroundColor = "grey";
-  }
-  else if (key === "b"){
-    backgroundColor = "white";
-  }
-  else if (key === "n"){
-    backgroundColor = "black";
+  spawnBasic();
+  moveEnemy();
+  shootBullet();
+  for (let i = 0; i < soldiers.length; i++) {
+    soldierShoot(i);
   }
 }
 
-function mousePressed() {
-  let y = Math.floor(mouseY/cellSize);
-  let x = Math.floor(mouseX/cellSize);
-
-  toggleCell(x, y);   //current cell
-}
 
 function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
-    if (backgroundColor === "white") {
-      grid[y][x] = 0;
-    }
-    else if (backgroundColor === "black") {
+    if (grid[y][x] === 0) {
       grid[y][x] = 1;
     }
-    else if (backgroundColor === "red") {
-      grid[y][x] = 2;
-    }
-    else if (backgroundColor === "green") {
-      grid[y][x] = 3;
-    }
-    else if (backgroundColor === "brown") {
-      grid[y][x] = 4;
-    }
-    else if (backgroundColor === "grey") {
-      grid[y][x] = 5;
+    else if (grid[y][x] === 1) {
+      grid[y][x] = 0;
     }
   }
 }
@@ -130,21 +81,41 @@ function displayGrid() {
         fill("black");
       }
       else if (grid[y][x] === 2) {
-        fill("red");
-      }
-      else if (grid[y][x] === 3) {
         fill("green");
-      }
-      else if (grid[y][x] === 4) {
-        fill("brown");
-      }
-      else if (grid[y][x] === 5) {
-        fill("grey");
       }
       rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
   }
+      
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      if (grid[y][x] === 3) {
+        let centerX = x * cellSize + cellSize / 2;
+        let centerY = y * cellSize + cellSize / 2;
+        imageMode(CENTER);
+        image(eye, centerX, centerY, cellSize, cellSize);
+      }
+    }
+  }
+
+  for(let y = 0; y < GRID_SIZE; y ++){
+    for(let x = 0; x < GRID_SIZE; x++){
+      if (grid[y][x] === 6) {
+        let centerX = x * cellSize + cellSize / 2;
+        let centerY = y * cellSize + cellSize / 2;
+        let sx = currentFrame * frameWidth;
+        let sy = 0;
+        image(sprite, centerX, centerY, frameWidth, frameHeight, sx, sy );
+
+        if(frameCount % animationSpeed === 0){
+          currentFrame = (currentFrame + 1 ) % totalFrame;
+        }
+        
+      }
+    }
+  }
 }
+
 
 function generateEmptyGrid(cols, rows) {
   let newGrid = [];
@@ -157,24 +128,79 @@ function generateEmptyGrid(cols, rows) {
   return newGrid;
 }
 
-function generateGreenTerrain(cols, rows){
-  let newGrid = [];
-  for (let y = 0; y < rows; y++) {
-    newGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      newGrid[y].push(3);
-    }
+
+function spawnBasic(){
+  if(second() > lastSwitchTime + waitTime){
+    let enemyY = Math.floor(Math.random() * GRID_SIZE);
+    grid[enemyY][GRID_SIZE - 1 ] = 3;
+    lastSwitchTime = second();
+    waitTime = random(2, 4);
+    
   }
-  return newGrid;
 }
 
-function moveEnemySlow(x, y){
-  if(millis() > lastMoveTime + speed){
-    lastMoveTime = millis();
-    if (playerX + x >= 0 && playerX + x < GRID_SIZE &&
-      playerY + y >= 0 && playerY + y < GRID_SIZE) {
-        
-      
+function moveEnemy(){
+  for(let y = 0; y < GRID_SIZE; y++){
+    for(let x = 0; x < GRID_SIZE; x++){
+      if(grid[y][x] === 3){
+        if(x - 1 >= 0 && grid [y][x - 1] === 0){
+          grid[y][x-1] = 3;
+          grid[y][x] = 0;
+        }
+      }
     }
   }
 }
+
+function shootBullet() {
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    bullets[i].x += bullets[i].speed;
+
+    // Display the bullet
+    fill("red");
+    ellipse(bullets[i].x, bullets[i].y, bullets[i].radius * 2, bullets[i].radius * 2);
+
+    // Remove bullets that go out of bounds
+    if (bullets[i].x > width) {
+      bullets.splice(i, 1);
+    }
+  }
+}
+
+function spawnBullet(x, y) {
+  bullets.push({
+    x: x,
+    y: y,
+    speed: 15, // Adjust the speed as needed
+    radius: 5, // Adjust the bullet size as needed
+  });
+}
+
+function mousePressed() {
+  let y = Math.floor(mouseY / cellSize);
+  let x = Math.floor(mouseX / cellSize);
+
+  if (grid[y][x] === 6) {
+    // Update the soldier's position when placing a soldier
+    soldiers.push({ x: x, y: y, lastShootTime: frameCount });
+    spawnBullet(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2);
+  } else {
+    // Place soldier at the clicked position
+    grid[y][x] = 6;
+    // Update the soldier's position when placing a soldier
+    soldiers.push({ x: x, y: y, lastShootTime: frameCount });
+  }
+}
+
+function soldierShoot() {
+  // Check if enough time has passed since the last shoot
+  if (frameCount - soldiers[index].lastShootTime >= 10) {
+    spawnBullet(
+      soldiers[index].x * cellSize + cellSize / 2,
+      soldiers[index].y * cellSize + cellSize / 2
+    );
+    // Update the last shoot time for this soldier
+    soldiers[index].lastShootTime = frameCount;
+  }
+}
+
