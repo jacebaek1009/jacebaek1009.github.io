@@ -10,6 +10,8 @@
 - [draw a grid](9-2d-array)
 - [grid neighbours](neighbours)
 - [character grid](character-in-grid)
+- [dog oop demo](15-dog-oop)
+- [move in class](16-move-class)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
