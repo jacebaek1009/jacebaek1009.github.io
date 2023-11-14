@@ -20,7 +20,7 @@ let totalFrame = 4;
 let currentFrame = 0;
 let animationSpeed = 5;
 let bullets = []
-
+let soldiers = [];
 let soldierX; 
 let soldierY;
 
@@ -53,10 +53,11 @@ function draw() {
   spawnBasic();
   moveEnemy();
   shootBullet();
-  if (frameCount % 60 === 0) { 
-    soldierShoot();
+  for (let i = 0; i < soldiers.length; i++) {
+    soldierShoot(i);
   }
 }
+
 
 function toggleCell(x, y) {
   //check that we are within the grid, then toggle
@@ -180,16 +181,26 @@ function mousePressed() {
   let x = Math.floor(mouseX / cellSize);
 
   if (grid[y][x] === 6) {
-    // Spawn a bullet at the soldier's position
+    // Update the soldier's position when placing a soldier
+    soldiers.push({ x: x, y: y, lastShootTime: frameCount });
     spawnBullet(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2);
-  }
-  else {
+  } else {
     // Place soldier at the clicked position
     grid[y][x] = 6;
+    // Update the soldier's position when placing a soldier
+    soldiers.push({ x: x, y: y, lastShootTime: frameCount });
   }
 }
 
 function soldierShoot() {
-  spawnBullet(soldierX * cellSize + cellSize / 2, soldierY * cellSize + cellSize / 2);
+  // Check if enough time has passed since the last shoot
+  if (frameCount - soldiers[index].lastShootTime >= 10) {
+    spawnBullet(
+      soldiers[index].x * cellSize + cellSize / 2,
+      soldiers[index].y * cellSize + cellSize / 2
+    );
+    // Update the last shoot time for this soldier
+    soldiers[index].lastShootTime = frameCount;
+  }
 }
 
