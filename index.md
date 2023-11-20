@@ -12,6 +12,9 @@
 - [character grid](character-in-grid)
 - [dog oop demo](15-dog-oop)
 - [move in class](16-move-class)
+- [bouncing ball class](17-ball-class)
+- [node](18-nodes)
+- [firwork demo](19-firework-OOP)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
