@@ -21,3 +21,4 @@
  - [array-assignment](array-assignment)
  - [2d-grid-assignment](grid-assignment)
  - [2d grid assignment improv](tetris)
+ - [Ej's sushiria](major-project)
