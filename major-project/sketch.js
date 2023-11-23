@@ -10,11 +10,14 @@ let salmon;
 let basket;
 let grab = true;
 let backg;
+let egg;
 
 function preload() {
   salmon = loadImage("salmon.png");
   basket = loadImage("basket.png");
-  backg = loadImage("")
+  backg = loadImage("");
+  egg = loadImage("egg.png");
+  eggBasket = loadImage("eggbasket.png");
 }
 
 function setup() {
@@ -52,4 +55,19 @@ class Ingredients {
 
 function displayBasket(x, y) {
   image(basket, x, y);
+}
+
+class Basket {
+  constructor(x, y, top, bottom, left, right){
+    this.x = x;
+    this.y = y;
+    this.top = top;
+    this.bottom = bottom;
+    this.left = left;
+    this.right = right;
+  }
+  
+  isInBasket(x, y, top, bottom, left, right) {
+    return x >= left && x <=right && (y <= bottom && y >= top);
+  }
 }
