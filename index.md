@@ -14,7 +14,8 @@
 - [move in class](16-move-class)
 - [bouncing ball class](17-ball-class)
 - [node](18-nodes)
-- [firwork demo](19-firework-OOP)
+- [firework demo](19-firework-OOP)
+- [Inheritance demo](20-inheritance)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
