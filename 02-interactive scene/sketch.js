@@ -90,13 +90,13 @@ function pickSpawn() {
 }
 
 function keyPressed() {
-  if (keyCode === UP_ARROW) {
+  if (keyCode === UP_ARROW || keyCode === 87) {
     s.directions(0, -1);
-  } else if (keyCode === DOWN_ARROW) {
+  } else if (keyCode === DOWN_ARROW || keyCode === 83) {
     s.directions(0, 1);
-  } else if (keyCode === RIGHT_ARROW) {
+  } else if (keyCode === RIGHT_ARROW || keyCode === 68) {
     s.directions(1, 0);
-  } else if (keyCode === LEFT_ARROW) {
+  } else if (keyCode === LEFT_ARROW || keyCode === 65) {
     s.directions(-1, 0);
   }
 }
