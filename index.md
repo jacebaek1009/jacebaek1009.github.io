@@ -14,7 +14,10 @@
 - [move in class](16-move-class)
 - [bouncing ball class](17-ball-class)
 - [node](18-nodes)
-- [firwork demo](19-firework-OOP)
+- [firework demo](19-firework-OOP)
+- [Inheritance demo](20-inheritance)
+- [collsion demo](21-collsion)
+- [o5play template](22-p5play)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
@@ -22,3 +25,4 @@
  - [2d-grid-assignment](grid-assignment)
  - [2d grid assignment improv](tetris)
  - [Ej's sushiria](major-project)
+ - [OOP pair programming](pair-programming)
