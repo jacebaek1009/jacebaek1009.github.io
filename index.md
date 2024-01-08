@@ -17,7 +17,8 @@
 - [firework demo](19-firework-OOP)
 - [Inheritance demo](20-inheritance)
 - [collsion demo](21-collsion)
-- [o5play template](22-p5play)
+- [p5play template](22-p5play)
+- [Recursive circles](23-circlerecursion)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
