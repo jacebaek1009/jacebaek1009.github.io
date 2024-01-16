@@ -19,6 +19,7 @@
 - [collsion demo](21-collsion)
 - [p5play template](22-p5play)
 - [Recursive circles](23-circlerecursion)
+- [square line](24-squareline)
 - [sierpinski triangle](25-triangle)
 
 ## Projects
