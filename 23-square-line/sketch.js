@@ -71,20 +71,30 @@ function draw() {
 function mouseClicked() {
   for (let i = 0; i < squares.length; i++) {
     if (squares[i].containsPoint(mouseX, mouseY)) {
-      squares[i].y -= 50;// Remove the clicked square from the array
-      for (let j = i + 1; j < squares.length; j++) {
-        squares[j].x = squares[j - 1].x + squares[j - 1].size + 10;
-      } // Adjust the positions of remaining squares starting from index i
-      break;                // Exit the loop once a square is removed
+      // Swap the clicked square with the last square in the array
+      const lastSquare = squares[squares.length - 1];
+      squares[squares.length - 1] = squares[i];
+      squares[i] = lastSquare;
+
+      // Move the clicked square to the right side of the canvas and adjust its y position
+      squares[i].x = width;
+      squares[i].y -= 60;  // Move it up by 60 pixels. Adjust this value as per your requirement.
+      
+      // Adjust the positions of the squares to fill the gap starting from the left edge of the window
+      adjustPositions();
+      
+      break;  // Exit the loop once positions are adjusted
     }
   }
 }
 
-function adjustPositions(startIndex) {
-  // Calculate the new x position for the squares after the removed square
-  let x = squares[startIndex].x;
-  for (let i = startIndex; i < squares.length; i++) {
+function adjustPositions() {
+  // Calculate the starting x position to align with the left edge of the window
+  let x = 0; // This is the left edge of the window
+  
+  // Adjust the positions of the squares to start from the left edge of the window
+  for (let i = squares.length - 1; i >= 0; i--) {
     squares[i].x = x;
-    x += squares[i].size + 10;
+    x += squares[i].size + 10; // Adjust by size + spacing for the next square
   }
 }
