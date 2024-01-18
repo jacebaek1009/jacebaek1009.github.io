@@ -21,6 +21,8 @@
 - [Recursive circles](23-circlerecursion)
 - [square line](24-squareline)
 - [sierpinski triangle](25-triangle)
+- [particle acclerator](particle)
+- [basket demo for MP](Basket-select)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
