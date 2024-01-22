@@ -23,6 +23,7 @@
 - [sierpinski triangle](25-triangle)
 - [particle acclerator](particle)
 - [basket demo for MP](Basket-select)
+- [sushiria demo](sushiria)
 
 ## Projects
  - [interactive-scene](02-interactive-scene)
