@@ -56,6 +56,7 @@ function draw() {
     fill(255, 0, 0);
     rect(food.x, food.y, gridScale, gridScale);
   } else {
+    background(0)
     textSize(50);
     textAlign(CENTER, TOP);
     text("Game Over", width / 2, 30);
