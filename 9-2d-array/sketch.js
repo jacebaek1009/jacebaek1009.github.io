@@ -12,7 +12,7 @@ let cellSize;
 //             [0,1,1,1]];
 
 let grid;            
-const GRID_SIZE = 15;
+const GRID_SIZE = 3;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
